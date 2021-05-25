@@ -1,7 +1,5 @@
 <h1><p align="center">Oracle CDC to Snowflake</p></h1>
 
-# Oracle CDC to Snowflake
-
 **Important:** *These instructions assume you have access to StreamSets Data Collector (v3.15+) and have performed all the prerequisites for Oracle and Snowflake*
 
 - For help installing [StreamSets Data Collector](https://streamsets.com/products/dataops-platform/data-collector/), see [StreamSets Data Collector Installation](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Installation/Install_title.html).
