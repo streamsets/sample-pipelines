@@ -38,7 +38,7 @@ This pipeline demonstrates how to read change data capture (CDC) data from a Pos
 
 ### Step 2: Import the pipeline
 
-Click the down arrow next to the "Create New Pipeline" and select "Import Pipeline From Archive".
+Click the up arrow in the Pipelines list to start the import process.
 
 ![Step 2](images/PostgreSQLtoSnowflake_step2.png "Import the Pipeline")
 
@@ -146,7 +146,7 @@ The following parameters are set up for this pipeline:
 
 ### Step 4: Run the pipeline
 
-Click the "START" button to run the pipeline.
+Click the "Test Run" button and select "Start Pipeline" to run the pipeline.
 
 ![Step 4](images/PostgreSQLtoSnowflake_step4.png "Run the pipeline")
 
