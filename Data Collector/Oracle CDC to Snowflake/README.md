@@ -32,7 +32,7 @@ This pipeline demonstrates how to read change data capture (CDC) data from an Or
 
 ### Step 1: Download the pipeline
 
-[Click Here](./OracleCDC_to_Snowflake_v4.x.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./OracleCDC_to_Snowflake.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 
