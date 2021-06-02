@@ -1,4 +1,4 @@
-![StreamSets Logo](../../../../images/Full%20Color%20Transparent.png)
+![StreamSets Logo](../../images/StreamSets_Full_Color_Transparent.png)
 
 <h1><p align="center">Oracle CDC to Snowflake</p></h1>
 

@@ -1,24 +1,20 @@
+![StreamSets Logo](../../images/StreamSets_Full_Color_Transparent.png)
+
 <h1><p align="center">PostgreSQL CDC to Snowflake</p></h1>
 
 # PostgreSQL CDC to Snowflake
 
-**Important:** *These instructions assume you have access to StreamSets Data Collector (v3.15+) and have performed all the prerequisites for PostgreSQL and Snowflake*
+**Important:** *These instructions assume you have access to StreamSets Data Collector (v4.0+) and have performed all the prerequisites for PostgreSQL and Snowflake*
 
 - For help installing [StreamSets Data Collector](https://streamsets.com/products/dataops-platform/data-collector/), see [StreamSets Data Collector Installation](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Installation/Install_title.html).
 - For help with PostgreSQL CDC Client prerequisites, see [PostgreSQL CDC Client](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Origins/PostgreSQL.html).
 - For help with Snowflake prerequisites, see [Snowflake](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Destinations/Snowflake.html).
-
-Here is a link to a short video on using this pipeline template: [Video Link](https://www.youtube.com/channel/UC_4K-__dngOCEmoZs7PVZAg)
 
 ## OVERVIEW
 
 This pipeline demonstrates how to read change data capture (CDC) data from a PostgreSQL database and replicate the changes to Snowflake.
 
 **Disclaimer:** *This pipeline is meant to serve as a template for performing PostgreSQL CDC to Snowflake.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the StreamSets documentation for full information on configuration of each stage used below.*
-
-## USING THE TEMPLATE
-
-NOTE: [Templates](https://streamsets.com/documentation/controlhub/latest/onpremhelp/controlhub/UserGuide/Pipelines/PipelineTemplates.html) are supported in [StreamSets Control Hub](https://streamsets.com/products/dataops-platform/control-hub/).
 
 ## PIPELINE
 
@@ -46,13 +42,14 @@ Click the down arrow next to the "Create New Pipeline" and select "Import Pipeli
 
 ![Step 2](images/PostgreSQLtoSnowflake_step2.png "Import the Pipeline")
 
-Click "Browse" and locate the pipeline file you just downloaded, click "OK", then click "Import"
+Select 'Archive File', enter a Commit Message, then click "Browse File" and locate the pipeline file you just downloaded and select it. Click "Import"
 
 ![Step 2a](images/PostgreSQLtoSnowflake_step2a.png "Import the Pipeline")
 
 ### Step 3: Configure the parameters
 
-Click on the pipeline you just imported to open it and click on the "Parameters" tab and fill in the appropriate information for your environment.
+Click on the pipeline you just imported to open it and click on the "Show Advanced Options" then select the "Parameters" tab and fill in the appropriate information for your environment.
+
 
 **Important:** *The pipeline template uses the most common default settings for things like the Snowflake region, staging location, etc. All of these are configurable and if you need to change those, you can opt to not use the built-in parameters and choose the appropriate settings yourself. Please refer to the documentation listed in this document for all the available options.*
 
