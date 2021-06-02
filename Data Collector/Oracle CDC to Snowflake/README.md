@@ -2,7 +2,7 @@
 
 <h1><p align="center">Oracle CDC to Snowflake</p></h1>
 
-# Oracle CDC to Snowflake 4.x
+# Oracle CDC to Snowflake
 
 **Important:** *These instructions assume you have access to StreamSets Data Collector (v4.0+) and have performed all the prerequisites for Oracle and Snowflake*
 
