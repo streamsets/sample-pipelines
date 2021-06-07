@@ -8,7 +8,7 @@ This repository contains assets that will help you get started with StreamSets D
 
 | Asset            | Description     |
 | --------------- | --------------- |
-| [Sample Pipelines](./DataCollector) | Contains sample pipelines for Data Collector |
+| [Sample Pipelines](./Data%20Collector) | Contains sample pipelines for Data Collector |
 
 ## Transformer
 
