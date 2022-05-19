@@ -2,22 +2,32 @@
 
 <h1><p align="center">MySQL to Snowflake - CDC</p></h1>
 
-# MySQL to Snowflake - BULK and CDC
+# MySQL to Snowflake - CDC (Updated: 2022.05)
 
-**Important:** *These instructions assume you have access to [StreamSets DataOps Platform](https://cloud.login.streamsets.com/signup) and have installed StreamSets Data Collector (v5.x+) and have performed all the prerequisites for MySQL and Snowflake*
+## PREREQUISITES
 
-- For help with MySQL Binary Log prerequisites, see [MySQL Binary Log](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Origins/MySQLBinaryLog.html#concept_kqg_1yh_xx).
-- For help with Snowflake prerequisites, see [Snowflake](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_vxl_zzc_1gb).
+* Access to [StreamSets DataOps Platform](https://cloud.login.streamsets.com/) account
+  * Setup [Environment](https://docs.streamsets.com/portal/#platform-controlhub/controlhub/UserGuide/Environments/Overview.html#concept_z4x_nw2_v4b)
+  * Setup [Deployment](https://docs.streamsets.com/portal/#platform-controlhub/controlhub/UserGuide/Deployments/Overview.html#concept_srv_jgf_v4b) with engine type [Data Collector](https://docs.streamsets.com/portal/#datacollector/latest/help/datacollector/UserGuide/Getting_Started/GettingStarted_Title.html#concept_sjz_rmx_3q)
+    * Once a deployment has been successfully activated, the Data Collector engine should be up
+and running before you can create pipelines and run jobs.
+* Access to [Snowflake](https://signup.snowflake.com/) account
+* Access to MySQL database
+  * Check [versions of MySQL](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
+
+Complete [MySQL CDC prerequisites](https://docs.streamsets.com/portal/#datacollector/latest/help/datacollector/UserGuide/Origins/MySQLBinaryLog.html#concept_nwf_f4x_1bb)
+
+Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb)
 
 ## OVERVIEW
 
-In order to setup a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination which will run once and then perform continuous CDC to keep the data in sync.
+In order to implement a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination which will run once and then perform continuous CDC to keep the data in sync.
 
 The first pipeline (**MySQL[a]_Snowflake_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.  This is in a separate folder located [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/MySQL%20to%20Snowflake%20-%20BULK)
 
 The second pipeline (**MySQL[b]_Snowflake_CDC**) will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.
 
-**Disclaimer:** *These pipelines are meant to serve as a template for performing bulk and CDC from MNySQL to Snowflake.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the StreamSets documentation (linked below) for full information on configuration of each stage used below.*
+**Disclaimer:** *These pipelines are meant to serve as a templates.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the [StreamSets documentation](https://docs.streamsets.com/) for full information on configuration of each stage used below.*
 
 ## PIPELINE #1 - BULK load
 
