@@ -41,7 +41,7 @@ The second pipeline (**MySQL[b]_Snowflake_CDC**) will be a streaming pipeline th
 
 ### Step 2: Import the pipeline
 
-https://github.com/streamsets/sample-pipelines/blob/master/Data%20Collector/MySQL%20to%20Snowflake%20-%20BULK%20and%20CDC/MySQL_a_Snowflake_BULK.zip
+**For more information on Importing Pipelines, click [here](https://docs.streamsets.com/portal/platform-controlhub/controlhub/UserGuide/ExportImport/Importing.html#concept_gsm_tjx_bdb)**
 
 Click the up arrow in the Pipelines list to start the import process.
 
