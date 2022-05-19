@@ -95,11 +95,3 @@ Click the "Draft Run" button and select Reset Origin & Start option to run the p
 ![Step 4](images/MySQLtoSnowflake_step4.png "Run the pipeline")
 
 ![Step 4a](images/MySQLtoSnowflake_step4a.png "Run the pipeline")
-
-### Step 4: Run the pipeline
-
-Click the "START" button to run the pipeline.
-
-![Step 4](images/MySQLtoSnowflake_step4.png "Run the pipeline")
-
-![Step 4a](images/MySQLtoSnowflake_step4a.png "Run the pipeline")
