@@ -20,7 +20,7 @@ Once the BULK load has been done, you can then set up the second pipeline (**MyS
 
 ## PIPELINE - BULK load
 
-![Pipeline](images/MySQL[a]_Snowflake_BULK.png "MySQL CDC to Snowflake")
+![Pipeline](images/MySQL[a]_Snowflake_BULK.png "MySQL BULK to Snowflake")
 
 ## DOCUMENTATION
 
@@ -60,9 +60,9 @@ The following parameters are set up for this pipeline:
 
 | Parameter Name | Description |
 | --- | --- |
-| JDBC Connection String | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>MySQL - jdbc:mysql://<host>:<port>/<database_name>|
-| Username | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
-| Password | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
+| MySQL JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>MySQL - jdbc:mysql://<host>:<port>/<database_name>|
+| MySQL_Username | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
+| MySQL_Password | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
 | Snowflake_Schema | Snowflake schema. |
 | Snowflake_Username | Snowflake user name.<br>The user account or the custom role that overrides the default role for this user account must have the required Snowflake privileges.<br>The required privileges depend on the load method that the destination uses. For details, see [Prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb). |
 | Snowflake_Password | Snowflake password. |

@@ -1,6 +1,6 @@
 ![StreamSets Logo](../../images/StreamSets_Full_Color_Transparent.png)
 
-<h1><p align="center">MySQL to Snowflake - BULK and CDC</p></h1>
+<h1><p align="center">MySQL to Snowflake - CDC</p></h1>
 
 # MySQL to Snowflake - BULK and CDC
 
@@ -15,7 +15,7 @@
 
 In order to setup a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination which will run once and then perform continuous CDC to keep the data in sync.
 
-The first pipeline (**MySQL[a]_Snowflake_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.
+The first pipeline (**MySQL[a]_Snowflake_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.  This is in a separate folder located [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/MySQL%20to%20Snowflake%20-%20BULK)
 
 The second pipeline (**MySQL[b]_Snowflake_CDC**) will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.
 
@@ -23,21 +23,25 @@ The second pipeline (**MySQL[b]_Snowflake_CDC**) will be a streaming pipeline th
 
 ## PIPELINE #1 - BULK load
 
-![Pipeline](images/MySQL[a]_Snowflake_BULK.png "MySQL CDC to Snowflake")
+![Pipeline](images/MySQLtoSnowflake_pipeline.png "MySQL CDC to Snowflake")
 
 ## DOCUMENTATION
 
-[JDBC Multitable Consumer](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Origins/MultiTableJDBCConsumer.html#concept_zp3_wnw_4y)
+[MySQL Binlog Origin](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Origins/MySQLBinaryLog.html#concept_kqg_1yh_xx)
+
+[Expression Evaluator](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Processors/Expression.html#concept_zm2_pp3_wq)
+
+[StreamSelector](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Processors/StreamSelector.html#concept_tqv_t5r_wq)
+
+[Field Renamer](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Processors/FieldRenamer.html#concept_vyv_zsg_ht)
 
 [Snowflake Destination](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_vxl_zzc_1gb)
-
-[Pipeline Finisher](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Executors/PipelineFinisher.html#concept_qzm_l4r_kz)
 
 ## STEP-BY-STEP
 
 ### Step 1: Download the pipeline
 
-[Click Here](./MySQL[a]_Snowflake_BULK.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./MySQL[b]_Snowflake_CDC.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 
@@ -61,228 +65,38 @@ Click on the pipeline you just imported to open it and click on the "Parameters"
 
 The following parameters are set up for this pipeline:
 
-<table>
-  <tr>
-   <td><code>mysql_hostname</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e756 ">MySQL server hostname.</td>
-  </tr>
-  <tr>
-   <td><code>mysql_port</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e756 ">MySQL server port. </td>
-  </tr>
-  <tr>
-   <td><code>mysql_serverid</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e756 ">Replication server ID that the origin uses to connect to
-                                        the master MySQL server. Must be unique from the server ID
-                                        of the replication master and of all the other replication
-                                            slaves.<p class="p">When the MySQL server database is enabled for
-                                            GTID, the server ID is optional. </p>
-</td>
-  </tr>
-  <tr>
-   <td><code>mysql_username</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e853 ">MySQL username. <div class="p">The user must have the following MySQL
-                                                privileges:<ul>
-                                                <li>REPLICATION CLIENT</li>
-                                                <li>REPLICATION SLAVE</li>
-                                            </ul>
-</div>
-</td>
-  </tr>
-  <tr>
-   <td><code>mysql_password</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e853 ">MySQL password.<div class="note tip"><span class="tiptitle">Tip:</span> <span class="ph" id="task_qbt_kyh_xx__d15e6239">To secure sensitive information such as user names and passwords, you can use <a class="xref" href="https://streamsets.com/documentation/datacollector/latest/help/index.html?contextID=concept_bs4_5nm_2s" title="Similar to runtime properties, runtime resources are values that you define in a file local to the Data Collector and call from within a pipeline. But with runtime resources, you can restrict the permissions for the files to secure information.">runtime resources</a> or <span class="ph"><a class="xref" href="https://streamsets.com/documentation/datacollector/latest/help/index.html?contextID=concept_bt1_bpj_r1b">credential stores.</a></span></span></div>
-</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_account</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2230 ">Snowflake account name.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_user</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2230 ">Snowflake user name.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_password</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2230 ">Snowflake password.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_warehouse</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2372 ">Snowflake warehouse.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_database</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2372 ">Snowflake database.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_schema</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2372 ">Snowflake schema.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_stage_name</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2713 ">Name of the Snowflake stage used to stage the data.
-                                            <p class="p">Unless using a Snowflake internal user stage, you
-                                            create this stage as part of the <a class="xref" href="https://streamsets.com/documentation/datacollector/latest/help/index.html?contextID=concept_ysy_fcj_ggb">Snowflake prerequisite tasks</a>.</p>
-<p class="p">To use a
-                                            Snowflake internal user stage, enter a tilde
-                                                (<code class="ph codeph">~</code>).</p>
-</td>
-  </tr>
-</table>
+| Parameter Name | Description |
+| --- | --- |
+| MySQL_JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>MySQL - jdbc:mysql://<host>:<port>/<database_name>|
+| MySQL_Username | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
+| MySQL_Password | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
+| Snowflake_Schema | Snowflake schema. |
+| Snowflake_Username | Snowflake user name.<br>The user account or the custom role that overrides the default role for this user account must have the required Snowflake privileges.<br>The required privileges depend on the load method that the destination uses. For details, see [Prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb). |
+| Snowflake_Password | Snowflake password. |
+| Snowflake_Account | Snowflake account name. |
+| Snowflake_Warehouse | Snowflake warehouse. |
+| Snowflake_Database | Snowflake database. |
+| Snowflake_Internal_Stage | Name of the Snowflake stage used to stage the data.<br>Unless using a Snowflake internal user stage, you create this stage as part of the [Snowflake prerequisite tasks](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb).<br>To use a Snowflake internal user stage, enter a tilde (~). |
+
+#### Other settings
+
+You may want to check the following settings:
+| Location | Setting |
+| --- | --- |
+| Snowflake Destination --> Snowflake Connection Info | Snowflake Region - Verify the correct entry
+| | |
+
+### Step 3a: Validate the pipeline
+
+Once the parameters have been entered, you will want to validate the pipeline and address any issues.
+
+![Step 3a](images/MySQLtoSnowflake_step3a.png "Validate the pipeline")
+
+![Step 3a](images/MySQLtoSnowflake_step3a2.png "Validate the pipeline")
 
 ### Step 4: Run the pipeline
 
-Click the "START" button to run the pipeline.
-
-![Step 4](images/MySQLtoSnowflake_step4.png "Run the pipeline")
-
-![Step 4a](images/MySQLtoSnowflake_step4a.png "Run the pipeline")
-
-### Step 5: Make changes to the MySQL source table and see the pipeline process them
-
-![Step 5](images/MySQLtoSnowflake_step5.png "View the results")
-
-
-
-
-## PIPELINE
-
-![Pipeline](images/MySQL[a]_Snowflake_BULK.png "MySQL CDC to Snowflake")
-
-## DOCUMENTATION
-
-[MySQL Binlog Origin](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Origins/MySQLBinaryLog.html)
-
-[Expression Evaluator](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Processors/Expression.html)
-
-[StreamSelector](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Processors/StreamSelector.html)
-
-[Field Renamer](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Processors/FieldRenamer.html)
-
-[Snowflake Destination](https://streamsets.com/documentation/datacollector/latest/help/datacollector/UserGuide/Destinations/Snowflake.html)
-
-## STEP-BY-STEP
-
-### Step 1: Download the pipeline
-
-[Click Here](./MySQL_CDC_to_Snowflake.zip?raw=true) to download the pipeline and save it to your drive.
-
-### Step 2: Import the pipeline
-
-Click the up arrow in the Pipelines list to start the import process.
-
-![Step 2](images/MySQLtoSnowflake_step2.png "Import the Pipeline")
-
-Select 'Archive File', enter a Commit Message, then click "Browse File" and locate the pipeline file you just downloaded and select it. Click "Import"
-
-![Step 2a](images/MySQLtoSnowflake_step2a.png "Import the Pipeline")
-
-### Step 3: Configure the parameters
-
-Click on the pipeline you just imported to open it and click on the "Parameters" tab and fill in the appropriate information for your environment.
-
-**Important:** *The pipeline template uses the most common default settings for things like the Snowflake region, staging location, etc. All of these are configurable and if you need to change those, you can opt to not use the built-in parameters and choose the appropriate settings yourself. Please refer to the documentation listed in this document for all the available options.*
-
-![Step 3](images/MySQLtoSnowflake_step3.png "Configure the parameters")
-
-The following parameters are set up for this pipeline:
-
-<table>
-  <tr>
-   <td><code>mysql_hostname</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e756 ">MySQL server hostname.</td>
-  </tr>
-  <tr>
-   <td><code>mysql_port</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e756 ">MySQL server port. </td>
-  </tr>
-  <tr>
-   <td><code>mysql_serverid</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e756 ">Replication server ID that the origin uses to connect to
-                                        the master MySQL server. Must be unique from the server ID
-                                        of the replication master and of all the other replication
-                                            slaves.<p class="p">When the MySQL server database is enabled for
-                                            GTID, the server ID is optional. </p>
-</td>
-  </tr>
-  <tr>
-   <td><code>mysql_username</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e853 ">MySQL username. <div class="p">The user must have the following MySQL
-                                                privileges:<ul>
-                                                <li>REPLICATION CLIENT</li>
-                                                <li>REPLICATION SLAVE</li>
-                                            </ul>
-</div>
-</td>
-  </tr>
-  <tr>
-   <td><code>mysql_password</code>
-   </td>
-   <td class="entry cellrowborder" headers="d436212e853 ">MySQL password.<div class="note tip"><span class="tiptitle">Tip:</span> <span class="ph" id="task_qbt_kyh_xx__d15e6239">To secure sensitive information such as user names and passwords, you can use <a class="xref" href="https://streamsets.com/documentation/datacollector/latest/help/index.html?contextID=concept_bs4_5nm_2s" title="Similar to runtime properties, runtime resources are values that you define in a file local to the Data Collector and call from within a pipeline. But with runtime resources, you can restrict the permissions for the files to secure information.">runtime resources</a> or <span class="ph"><a class="xref" href="https://streamsets.com/documentation/datacollector/latest/help/index.html?contextID=concept_bt1_bpj_r1b">credential stores.</a></span></span></div>
-</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_account</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2230 ">Snowflake account name.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_user</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2230 ">Snowflake user name.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_password</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2230 ">Snowflake password.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_warehouse</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2372 ">Snowflake warehouse.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_database</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2372 ">Snowflake database.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_schema</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2372 ">Snowflake schema.</td>
-  </tr>
-  <tr>
-   <td><code>snowflake_stage_name</code>
-   </td>
-   <td class="entry cellrowborder" headers="d198512e2713 ">Name of the Snowflake stage used to stage the data.
-                                            <p class="p">Unless using a Snowflake internal user stage, you
-                                            create this stage as part of the <a class="xref" href="https://streamsets.com/documentation/datacollector/latest/help/index.html?contextID=concept_ysy_fcj_ggb">Snowflake prerequisite tasks</a>.</p>
-<p class="p">To use a
-                                            Snowflake internal user stage, enter a tilde
-                                                (<code class="ph codeph">~</code>).</p>
-</td>
-  </tr>
-</table>
-
-### Step 4: Run the pipeline
-
-Click the "START" button to run the pipeline.
+Click the "Draft Run" button and select Reset Origin & Start option to run the pipeline.
 
 ![Step 4](images/MySQLtoSnowflake_step4.png "Run the pipeline")
 
