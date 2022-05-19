@@ -4,7 +4,7 @@
 
 This repository contains assets that will help you get started with StreamSets DataOps Platform.
 
-## Data Collector 4.x
+## Data Collector 5.x
 
 | Asset            | Description     |
 | --------------- | --------------- |
