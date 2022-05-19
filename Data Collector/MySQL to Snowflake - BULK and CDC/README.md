@@ -37,7 +37,7 @@ The second pipeline (**MySQL[b]_Snowflake_CDC**) will be a streaming pipeline th
 
 ### Step 1: Download the pipeline
 
-[Click Here](./MySQL_a_Snowflake_BULK.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./MySQL[a]_Snowflake_BULK.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 
