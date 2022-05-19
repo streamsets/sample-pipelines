@@ -1,6 +1,6 @@
 ![StreamSets Logo](images/StreamSets_Full_Color_Transparent.png)
 
-<h1><p align="center">Sample Pipelines for 4.x</p></h1>
+<h1><p align="center">Sample Pipelines</p></h1>
 
 This repository contains assets that will help you get started with StreamSets DataOps Platform.
 
