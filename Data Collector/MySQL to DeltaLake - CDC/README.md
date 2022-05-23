@@ -49,7 +49,7 @@ The second pipeline (**MySQL_DeltaLake[b]_CDC**) will be a streaming pipeline th
 
 ### Step 1: Download the pipeline
 
-[Click Here](./MySQL_Snowflake[b]_CDC.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./MySQL_DeltaLake[b]_CDC.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 
