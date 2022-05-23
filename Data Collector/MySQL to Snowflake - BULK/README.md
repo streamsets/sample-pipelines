@@ -25,9 +25,9 @@ Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-d
 
 In order to setup a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination, which will run once, and then perform continuous CDC to keep the data in sync.
 
-This pipeline (**MySQL[a]_Snowflake_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.
+This pipeline (**MySQL_Snowflake[a]_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.
 
-Once the BULK load has been done, you can then set up the second pipeline (**MySQL[b]_Snowflake_CDC**) which will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.  This is in a separate folder locate [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/MySQL%20to%20Snowflake%20-%20CDC)
+Once the BULK load has been done, you can then set up the second pipeline (**MySQL_Snowflake[b]_CDC**) which will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.  This is in a separate folder locate [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/MySQL%20to%20Snowflake%20-%20CDC)
 
 **Disclaimer:** *These pipelines are meant to serve as a template.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the StreamSets documentation (linked below) for full information on configuration of each stage used below.*
 
@@ -47,7 +47,7 @@ Once the BULK load has been done, you can then set up the second pipeline (**MyS
 
 ### Step 1: Download the pipeline
 
-[Click Here](./MySQL[a]_Snowflake_BULK.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./MySQL_Snowflake[a]_BULK.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 

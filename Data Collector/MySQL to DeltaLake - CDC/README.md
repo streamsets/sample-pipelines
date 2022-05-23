@@ -1,8 +1,8 @@
 ![StreamSets Logo](../../images/StreamSets_Full_Color_Transparent.png)
 
-<h1><p align="center">MySQL to Snowflake - CDC</p></h1>
+<h1><p align="center">MySQL to DeltaLake - CDC</p></h1>
 
-# MySQL to Snowflake - CDC (Updated: 2022.05)
+# MySQL to DeltaLake - CDC (Updated: 2022.05)
 
 ## PREREQUISITES
 
@@ -11,27 +11,27 @@
   * Setup [Deployment](https://docs.streamsets.com/portal/#platform-controlhub/controlhub/UserGuide/Deployments/Overview.html#concept_srv_jgf_v4b) with engine type [Data Collector](https://docs.streamsets.com/portal/#datacollector/latest/help/datacollector/UserGuide/Getting_Started/GettingStarted_Title.html#concept_sjz_rmx_3q)
     * Once a deployment has been successfully activated, the Data Collector engine should be up
 and running before you can create pipelines and run jobs.
-* Access to [Snowflake](https://signup.snowflake.com/) account
+* Access to [DeltaLake](https://databricks.com/try-databricks) account
 * Access to MySQL database
   * Check [versions of MySQL](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
 
 Complete [MySQL CDC prerequisites](https://docs.streamsets.com/portal/#datacollector/latest/help/datacollector/UserGuide/Origins/MySQLBinaryLog.html#concept_nwf_f4x_1bb)
 
-Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb)
+Complete [Delta Lake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/DeltaLake.html#concept_xnp_y5f_dlb)
 
 ## OVERVIEW
 
 In order to implement a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination which will run once and then perform continuous CDC to keep the data in sync.
 
-The first pipeline (**MySQL_Snowflake[a]_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.  This is in a separate folder located [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/MySQL%20to%20Snowflake%20-%20BULK)
+The first pipeline (**MySQL_DeltaLake[a]_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.  This is in a separate folder located [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/MySQL%20to%20DeltaLake%20-%20BULK)
 
-The second pipeline (**MySQL_Snowflake[b]_CDC**) will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.
+The second pipeline (**MySQL_DeltaLake[b]_CDC**) will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.
 
 **Disclaimer:** *These pipelines are meant to serve as a templates.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the [StreamSets documentation](https://docs.streamsets.com/) for full information on configuration of each stage used below.*
 
-## PIPELINE #1 - BULK load
+## PIPELINE - CDC load
 
-![Pipeline](images/MySQLtoSnowflake_pipeline.png "MySQL CDC to Snowflake")
+![Pipeline](images/MySQLtoDeltaLake_pipeline.png "MySQL CDC to Snowflake")
 
 ## DOCUMENTATION
 
@@ -43,7 +43,7 @@ The second pipeline (**MySQL_Snowflake[b]_CDC**) will be a streaming pipeline th
 
 [Expression Evaluator](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Processors/Expression.html#concept_zm2_pp3_wq)
 
-[Snowflake Destination](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_vxl_zzc_1gb)
+[DeltaLake Destination](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/DeltaLake.html#concept_ddy_cdz_clb)
 
 ## STEP-BY-STEP
 
@@ -57,11 +57,11 @@ The second pipeline (**MySQL_Snowflake[b]_CDC**) will be a streaming pipeline th
 
 Click the up arrow in the Pipelines list to start the import process.
 
-![Step 2](images/MySQLtoSnowflake_step2.png "Import the Pipeline")
+![Step 2](images/MySQLtoDeltaLake_step2.png "Import the Pipeline")
 
 Select 'Archive File', enter a Commit Message, then click "Browse File" and locate the pipeline file you just downloaded and select it. Click "Import"
 
-![Step 2a](images/MySQLtoSnowflake_step2a.png "Import the Pipeline")
+![Step 2a](images/MySQLtoDeltaLake_step2a.png "Import the Pipeline")
 
 ### Step 3: Configure the parameters
 
@@ -69,47 +69,45 @@ Click on the pipeline you just imported to open it and click on the "Parameters"
 
 **Important:** *The pipeline template uses the most common default settings for things like the Snowflake region, staging location, etc. All of these are configurable and if you need to change those, you can opt to not use the built-in parameters and choose the appropriate settings yourself. Please refer to the documentation listed in this document for all the available options.*
 
-![Step 3](images/MySQLtoSnowflake_step3.png "Configure the parameters")
+![Step 3](images/MySQLtoDeltaLake_step3.png "Configure the parameters")
 
 The following parameters are set up for this pipeline:
 
 | Parameter Name | Description |
 | --- | --- |
-| MySQL_JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>MySQL - jdbc:mysql://<host>:<port>/<database_name>|
+| DeltaLake_JDBC_URL | JDBC URL used to connect to the Databricks cluster.<br>For example: jdbc:spark://[server_hostname]:443/default;transportMode=http :ssl=1;httpPath=sql/protocolv1/o/0/xxxx-xxxxxx-xxxxxxxx;AuthMech=3;<br>**Tip:** In Databricks, you can locate the JDBC URL for your cluster on the JDBC/ODBC tab in the cluster configuration details. As a best practice, remove the PWD parameter from the URL, and then enter the personal access token value in the Token property below. |
+| DeltaLake_Token | Personal access token used to connect to the Databricks cluster.<br>**Tip:** To secure sensitive information such as access key pairs, you can use runtime resources or credential stores. |
+| DeltaLake_Database | Name of the DeltaLake database |
+| DeltaLake_Dir_Location | Directory for the Delta table location, specified as a path on Databricks File System (DBFS).<br>The destination adds the specified Table Name value as a subdirectory to create the final table location. For example, if you enter /mnt/deltalake as the directory for the table location and you enter sales.accounts as the table name, the final table location is /mnt/deltalake/sales.accounts.<br>When you specify a location, the destination creates an unmanaged Delta table. When you do not specify a location, the destination creates a managed Delta table. For more information, see the Delta Lake documentation.<br>Available when data drift and automatic table creation are enabled. |
+| DeltaLake_S3_bucket | Bucket name or path to the existing Amazon S3 location to write the staged files.<br>Enter the bucket name or enter the full bucket path in the following format:<br>[bucket]/[prefix]<br>Available when using the Amazon S3 staging location. |
+| MySQL JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>MySQL - jdbc:mysql://<host>:<port>/<database_name>|
 | MySQL_Username | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
 | MySQL_Password | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
-| Snowflake_Schema | Snowflake schema. |
-| Snowflake_Username | Snowflake user name.<br>The user account or the custom role that overrides the default role for this user account must have the required Snowflake privileges.<br>The required privileges depend on the load method that the destination uses. For details, see [Prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb). |
-| Snowflake_Password | Snowflake password. |
-| Snowflake_Account | Snowflake account name. |
-| Snowflake_Warehouse | Snowflake warehouse. |
-| Snowflake_Database | Snowflake database. |
-| Snowflake_Internal_Stage | Name of the Snowflake stage used to stage the data.<br>Unless using a Snowflake internal user stage, you create this stage as part of the [Snowflake prerequisite tasks](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb).<br>To use a Snowflake internal user stage, enter a tilde (~). |
 
 #### Other settings
 
 You may want to check the following settings:
 | Location | Setting |
 | --- | --- |
-| Snowflake Destination --> Snowflake Connection Info | Snowflake Region - Verify the correct entry
+| DeltaLake Destination --> Staging | Verify Staging location and access method |
 | | |
 
 ### Step 3a: Validate the pipeline
 
 Once the parameters have been entered, you will want to validate the pipeline and address any issues.
 
-![Step 3a](images/MySQLtoSnowflake_step3a.png "Validate the pipeline")
+![Step 3a](images/MySQLtoDeltaLake_step3a.png "Validate the pipeline")
 
-![Step 3a](images/MySQLtoSnowflake_step3a2.png "Validate the pipeline")
+![Step 3a](images/MySQLtoDeltaLake_step3a2.png "Validate the pipeline")
 
 ### Step 4: Run the pipeline
 
 Click the "Draft Run" button and select Reset Origin & Start option to run the pipeline.
 
-![Step 4](images/MySQLtoSnowflake_step4.png "Run the pipeline")
+![Step 4](images/MySQLtoDeltaLake_step4.png "Run the pipeline")
 
-![Step 4a](images/MySQLtoSnowflake_step4a.png "Run the pipeline")
+![Step 4a](images/MySQLtoDeltaLake_step4a.png "Run the pipeline")
 
 ### Step 5: Make changes to the MySQL source table and see the pipeline process them
 
-![Step 5](images/MySQLtoSnowflake_step5.png "View the results")
+![Step 5](images/MySQLtoDeltaLake_step5.png "View the results")
