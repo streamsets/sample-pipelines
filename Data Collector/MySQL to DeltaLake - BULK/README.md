@@ -64,7 +64,7 @@ Select 'Archive File', enter a Commit Message, then click "Browse File" and loca
 
 Click on the pipeline you just imported to open it and click on the "Parameters" tab and fill in the appropriate information for your environment.
 
-**Important:** *The pipeline template uses the most common default settings for things like the Snowflake region, staging location, etc. All of these are configurable and if you need to change those, you can opt to not use the built-in parameters and choose the appropriate settings yourself. Please refer to the documentation listed in this document for all the available options.*
+**Important:** *The pipeline template uses the most common default settings for things like the DeltaLake region, staging location, etc. All of these are configurable and if you need to change those, you can opt to not use the built-in parameters and choose the appropriate settings yourself. Please refer to the documentation listed in this document for all the available options.*
 
 ![Step 3](images/MySQLtoDeltaLakeBULK_step3.png "Configure the parameters")
 
