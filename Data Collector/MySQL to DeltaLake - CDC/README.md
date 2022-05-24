@@ -90,8 +90,9 @@ You may want to check the following settings:
 | Location | Setting |
 | --- | --- |
 | DeltaLake Destination --> Staging | Verify Staging location and access method |
+| DeltaLake Destination --> Data | You **MUST** enter in the table and Key Columns in order to perform updates and deletes. |
 | | |
-
+![Step 2b](images/MySQLtoDeltaLake_step2b.png "Keys")
 ### Step 3a: Validate the pipeline
 
 Once the parameters have been entered, you will want to validate the pipeline and address any issues.
