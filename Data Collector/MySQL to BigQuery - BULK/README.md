@@ -15,7 +15,7 @@ and running before you can create pipelines and run jobs.
 * Access to MySQL database
   * Check [versions of MySQL](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
 * Install the MySQL JDBC Driver
-  * Downlaod the correct JDBC driver from the web i.e. https://dev.mysql.com/downloads/connector/j/
+  * Download the correct JDBC driver from the web i.e. https://dev.mysql.com/downloads/connector/j/
   * Install the driver following these instructions **after you have imported the pipeline and from the Origin stage**: [Installing from Stage Properties](https://docs.streamsets.com/datacollector/latest/help/datacollector/UserGuide/Configuration/ExternalLibs.html#concept_skq_dh3_5mb)
 
 Complete [Google BigQuery prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/GBigQuery.html#concept_vsg_fxb_3rb)

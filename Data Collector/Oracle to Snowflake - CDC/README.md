@@ -1,8 +1,8 @@
 ![StreamSets Logo](../../images/StreamSets_Full_Color_Transparent.png)
 
-<h1><p align="center">Oracle to Snowflake - BULK</p></h1>
+<h1><p align="center">Oracle to Snowflake - CDC</p></h1>
 
-# Oracle to Snowflake - BULK (Updated: 2022.05)
+# Oracle to Snowflake - CDC (Updated: 2022.05)
 
 ## PREREQUISITES
 
@@ -11,43 +11,43 @@
   * Setup [Deployment](https://docs.streamsets.com/portal/#platform-controlhub/controlhub/UserGuide/Deployments/Overview.html#concept_srv_jgf_v4b) with engine type [Data Collector](https://docs.streamsets.com/portal/#datacollector/latest/help/datacollector/UserGuide/Getting_Started/GettingStarted_Title.html#concept_sjz_rmx_3q)
     * Once a deployment has been successfully activated, the Data Collector engine should be up
 and running before you can create pipelines and run jobs.
-* Access to [Snowflake](https://signup.snowflake.com/) account
 * Access to Oracle database
   * Check [versions of Oracle](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
 * Install the Oracle JDBC Driver
   * Download the correct JDBC driver from the web i.e. https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
   * Install the driver following these instructions **after you have imported the pipeline and from the Origin stage**: [Installing from Stage Properties](https://docs.streamsets.com/datacollector/latest/help/datacollector/UserGuide/Configuration/ExternalLibs.html#concept_skq_dh3_5mb)
 
-Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb)
+Complete [Oracle CDC prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Origins/OracleCDC.html#concept_xwg_33w_cx)
 
+Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb)
 
 ## OVERVIEW
 
-In order to setup a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination, which will run once, and then perform continuous CDC to keep the data in sync.
+In order to implement a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination which will run once and then perform continuous CDC to keep the data in sync.
 
-This pipeline (**Oracle_Snowflake[a]_BULK**) will be a batch pipeline that runs once and reads data from Oracle and loads data to Snowflake.
+The first pipeline (**Oracle_Snowflake[a]_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.  This is in a separate folder located [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/Oracle%20to%20Snowflake%20-%20BULK)
 
-Once the BULK load has been done, you can then set up the second pipeline (**Oracle_Snowflake[b]_CDC**) which will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.  This is in a separate folder locate [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/Oracle%20to%20Snowflake%20-%20CDC)
+The second pipeline (**Oracle_Snowflake[b]_CDC**) will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.
 
-**Disclaimer:** *These pipelines are meant to serve as a template.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the StreamSets documentation (linked below) for full information on configuration of each stage used below.*
+**Disclaimer:** *These pipelines are meant to serve as a templates.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the [StreamSets documentation](https://docs.streamsets.com/) for full information on configuration of each stage used below.*
 
-## PIPELINE - BULK load
+## PIPELINE #1 - BULK load
 
-![Pipeline](images/OracletoSnowflake_pipeline.png "Oracle BULK to Snowflake")
+![Pipeline](images/OracletoSnowflake_pipeline.png "Oracle CDC to Snowflake")
 
 ## DOCUMENTATION
 
-[JDBC Multitable Consumer](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Origins/MultiTableJDBCConsumer.html#concept_zp3_wnw_4y)
+[Oracle Binlog Origin](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Origins/OracleCDC.html#concept_rs5_hjj_tw)
+
+[Expression Evaluator](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Processors/Expression.html#concept_zm2_pp3_wq)
 
 [Snowflake Destination](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_vxl_zzc_1gb)
-
-[Pipeline Finisher](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Executors/PipelineFinisher.html#concept_qzm_l4r_kz)
 
 ## STEP-BY-STEP
 
 ### Step 1: Download the pipeline
 
-[Click Here](./Oracle_Snowflake[a]_BULK.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./Oracle_Snowflake[b]_CDC.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 
@@ -73,7 +73,7 @@ The following parameters are set up for this pipeline:
 
 | Parameter Name | Description |
 | --- | --- |
-| Oracle JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>Oracle - jdbc:oracle:[driver_type]:@[host]:[port]:[service_name] |
+| Oracle_JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>Oracle - jdbc:oracle:[driver_type]:@[host]:[port]:[service_name]|
 | Oracle_Username | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
 | Oracle_Password | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
 | Snowflake_Schema | Snowflake schema. |
@@ -89,7 +89,7 @@ The following parameters are set up for this pipeline:
 You may want to check the following settings:
 | Location | Setting |
 | --- | --- |
-| JDBC Origin --> Tables | Schema and Table name pattern<br>Use wildcards (%) to slect multiple Schemas and/or Tables |
+| Oracle CDC Client Origin --> Oracle CDC | Schema and Table name pattern<br>Use wildcards (%) to slect multiple Schemas and/or Tables |
 | Snowflake Destination --> Snowflake Connection Info | Snowflake Region - Verify the correct entry
 | | |
 
@@ -108,3 +108,7 @@ Click the "Draft Run" button and select Reset Origin & Start option to run the p
 ![Step 4](images/OracletoSnowflake_step4.png "Run the pipeline")
 
 ![Step 4a](images/OracletoSnowflake_step4a.png "Run the pipeline")
+
+### Step 5: Make changes to the MySQL source table and see the pipeline process them
+
+![Step 5](images/OracletoSnowflake_step5.png "View the results")
