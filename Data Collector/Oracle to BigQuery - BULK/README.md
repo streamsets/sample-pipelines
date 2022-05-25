@@ -25,7 +25,7 @@ Complete [Google BigQuery prerequisites](https://docs.streamsets.com/portal/plat
 
 In order to setup a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination, which will run once, and then perform continuous CDC to keep the data in sync.
 
-This pipeline (**Oracle_GBQ[a]_BULK**) will be a batch pipeline that runs once and reads data from MySQL and loads data to Snowflake.
+This pipeline (**Oracle_GBQ[a]_BULK**) will be a batch pipeline that runs once and reads data from Oracle and loads data to BigQuery.
 
 Once the BULK load has been done, you can then set up the second pipeline (**Oracle_GBQ[b]_CDC**) which will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.  This is in a separate folder locate [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/Oracle%20to%20BigQuery%20-%20CDC)
 
@@ -33,7 +33,7 @@ Once the BULK load has been done, you can then set up the second pipeline (**Ora
 
 ## PIPELINE - BULK load
 
-![Pipeline](images/OracletoGBQ_pipeline.png "Oracle BULK to Snowflake")
+![Pipeline](images/OracletoGBQ_pipeline.png "Oracle BULK to BigQuery")
 
 ## DOCUMENTATION
 
