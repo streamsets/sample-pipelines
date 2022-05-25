@@ -4,6 +4,7 @@
 
 # MySQL to Snowflake - CDC (Updated: 2022.05)
 
+## Built with Data Collector v5.0.0 - please use engine v5+
 ## PREREQUISITES
 
 * Access to [StreamSets DataOps Platform](https://cloud.login.streamsets.com/) account
@@ -104,7 +105,7 @@ Once the parameters have been entered, you will want to validate the pipeline an
 
 ### Step 4: Run the pipeline
 
-Click the "Draft Run" button and select Reset Origin & Start option to run the pipeline.
+Click the "Draft Run" button and select Start Pipeline option to run the pipeline.
 
 ![Step 4](images/MySQLtoSnowflake_step4.png "Run the pipeline")
 

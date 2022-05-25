@@ -4,6 +4,7 @@
 
 # Oracle to Snowflake - BULK (Updated: 2022.05)
 
+## Built with Data Collector v5.0.0 - please use engine v5+
 ## PREREQUISITES
 
 * Access to [StreamSets DataOps Platform](https://cloud.login.streamsets.com/) account
