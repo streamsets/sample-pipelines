@@ -1,10 +1,11 @@
 ![StreamSets Logo](../../images/StreamSets_Full_Color_Transparent.png)
 
-<h1><p align="center">Oracle to Snowflake - BULK</p></h1>
+<h1><p align="center">SQLServer to Snowflake - BULK</p></h1>
 
-# Oracle to Snowflake - BULK (Updated: 2022.05)
+# SQLServer to Snowflake - BULK (Updated: 2022.05)
 
 ## Built with Data Collector v5.0.0 - please use engine v5+
+
 ## PREREQUISITES
 
 * Access to [StreamSets DataOps Platform](https://cloud.login.streamsets.com/) account
@@ -13,11 +14,8 @@
     * Once a deployment has been successfully activated, the Data Collector engine should be up
 and running before you can create pipelines and run jobs.
 * Access to [Snowflake](https://signup.snowflake.com/) account
-* Access to Oracle database
-  * Check [versions of Oracle](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
-* Install the Oracle JDBC Driver
-  * Download the correct JDBC driver from the web i.e. https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
-  * Install the driver following these instructions **after you have imported the pipeline and from the Origin stage**: [Installing from Stage Properties](https://docs.streamsets.com/datacollector/latest/help/datacollector/UserGuide/Configuration/ExternalLibs.html#concept_skq_dh3_5mb)
+* Access to SQLServer database
+  * Check [versions of SQLServer](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
 
 Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb)
 
@@ -26,15 +24,15 @@ Complete [Snowflake prerequisites](https://docs.streamsets.com/portal/platform-d
 
 In order to setup a Change Data Capture (CDC) process, you will need to perform a BULK load in order to instantiate the data in your destination, which will run once, and then perform continuous CDC to keep the data in sync.
 
-This pipeline (**Oracle_Snowflake[a]_BULK**) will be a batch pipeline that runs once and reads data from Oracle and loads data to Snowflake.
+This pipeline (**SQLServer_Snowflake[a]_BULK**) will be a batch pipeline that runs once and reads data from SQLServer and loads data to Snowflake.
 
-Once the BULK load has been done, you can then set up the second pipeline (**Oracle_Snowflake[b]_CDC**) which will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.  This is in a separate folder locate [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/Oracle%20to%20Snowflake%20-%20CDC)
+Once the BULK load has been done, you can then set up the second pipeline (**SQLServer_Snowflake[b]_CDC**) which will be a streaming pipeline that will replicate changes from your source to the destination performing inserts, updates and deletes.  This is in a separate folder locate [here](https://github.com/streamsets/sample-pipelines/tree/master/Data%20Collector/SQLServer%20to%20Snowflake%20-%20CDC)
 
 **Disclaimer:** *These pipelines are meant to serve as a template.  Some of the parameters, tables and fields may be different for your environment and may need additional customizations.  Please consult the StreamSets documentation (linked below) for full information on configuration of each stage used below.*
 
 ## PIPELINE - BULK load
 
-![Pipeline](images/OracletoSnowflake_pipeline.png "Oracle BULK to Snowflake")
+![Pipeline](images/SQLServertoSnowflake_pipeline.png "SQLServer BULK to Snowflake")
 
 ## DOCUMENTATION
 
@@ -48,7 +46,7 @@ Once the BULK load has been done, you can then set up the second pipeline (**Ora
 
 ### Step 1: Download the pipeline
 
-[Click Here](./Oracle_Snowflake[a]_BULK.zip?raw=true) to download the pipeline and save it to your drive.
+[Click Here](./SQLServer_Snowflake[a]_BULK.zip?raw=true) to download the pipeline and save it to your drive.
 
 ### Step 2: Import the pipeline
 
@@ -56,11 +54,11 @@ Once the BULK load has been done, you can then set up the second pipeline (**Ora
 
 Click the up arrow in the Pipelines list to start the import process.
 
-![Step 2](images/OracletoSnowflake_step2.png "Import the Pipeline")
+![Step 2](images/SQLServertoSnowflake_step2.png "Import the Pipeline")
 
 Select 'Archive File', enter a Commit Message, then click "Browse File" and locate the pipeline file you just downloaded and select it. Click "Import"
 
-![Step 2a](images/OracletoSnowflake_step2a.png "Import the Pipeline")
+![Step 2a](images/SQLServertoSnowflake_step2a.png "Import the Pipeline")
 
 ### Step 3: Configure the parameters
 
@@ -68,15 +66,15 @@ Click on the pipeline you just imported to open it and click on the "Parameters"
 
 **Important:** *The pipeline template uses the most common default settings for things like the Snowflake region, staging location, etc. All of these are configurable and if you need to change those, you can opt to not use the built-in parameters and choose the appropriate settings yourself. Please refer to the documentation listed in this document for all the available options.*
 
-![Step 3](images/OracletoSnowflake_step3.png "Configure the parameters")
+![Step 3](images/SQLServertoSnowflake_step3.png "Configure the parameters")
 
 The following parameters are set up for this pipeline:
 
 | Parameter Name | Description |
 | --- | --- |
-| Oracle JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>Oracle - jdbc:oracle:[driver_type]:@[host]:[port]:[service_name] |
-| Oracle_Username | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
-| Oracle_Password | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
+| SQLServer_JDBC | Connection string used to connect to the database. Use the connection string format required by the database vendor.<br>For example, use the following formats for these database vendors:<br>SQL Server - jdbc:sqlserver://[host]:[port];databaseName=[database_name]|
+| SQLServer_USER | User name for the JDBC connection.<br>The user account must have the correct permissions or privileges in the database.|
+| SQLServer_PASSWORD | Password for the JDBC user name.<br>Tip: To secure sensitive information such as user names and passwords, you can use [runtime resources](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Pipeline_Configuration/RuntimeValues.html#concept_bs4_5nm_2s) or [credential stores](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Configuration/CredentialStores.html#concept_bt1_bpj_r1b).
 | Snowflake_Schema | Snowflake schema. |
 | Snowflake_Username | Snowflake user name.<br>The user account or the custom role that overrides the default role for this user account must have the required Snowflake privileges.<br>The required privileges depend on the load method that the destination uses. For details, see [Prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/Snowflake.html#concept_ysy_fcj_ggb). |
 | Snowflake_Password | Snowflake password. |
@@ -98,14 +96,14 @@ You may want to check the following settings:
 
 Once the parameters have been entered, you will want to validate the pipeline and address any issues.
 
-![Step 3a](images/OracletoSnowflake_step3a.png "Validate the pipeline")
+![Step 3a](images/SQLServertoSnowflake_step3a.png "Validate the pipeline")
 
-![Step 3a](images/OracletoSnowflake_step3a2.png "Validate the pipeline")
+![Step 3a](images/SQLServertoSnowflake_step3a2.png "Validate the pipeline")
 
 ### Step 4: Run the pipeline
 
 Click the "Draft Run" button and select Reset Origin & Start option to run the pipeline.
 
-![Step 4](images/OracletoSnowflake_step4.png "Run the pipeline")
+![Step 4](images/SQLServertoSnowflake_step4.png "Run the pipeline")
 
-![Step 4a](images/OracletoSnowflake_step4a.png "Run the pipeline")
+![Step 4a](images/SQLServertoSnowflake_step4a.png "Run the pipeline")

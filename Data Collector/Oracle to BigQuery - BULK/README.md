@@ -87,7 +87,7 @@ The following parameters are set up for this pipeline:
 You may want to check the following settings:
 | Location | Setting |
 | --- | --- |
-| JDBC Origin --> Tables | Schema and Table name pattern<br>Use wildcards (%) to slect multiple Schemas and/or Tables |
+| JDBC Origin --> Tables | Schema and Table name pattern<br>Use wildcards (%) to select multiple Schemas and/or Tables |
 | BigQuery Destination | Verify the correct entries for connecting to BigQuery |
 | | |
 
