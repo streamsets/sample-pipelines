@@ -89,6 +89,7 @@ The following parameters are set up for this pipeline:
 You may want to check the following settings:
 | Location | Setting |
 | --- | --- |
+| SQL Server CDC Client --> CDC | Capture instance<br>Use wildcards (%) to select multiple Schemas and/or Tables |
 | DeltaLake Destination --> Staging | Verify Staging location and access method |
 | DeltaLake Destination --> Data | You **MUST** enter in the table and Key Columns in order to perform updates and deletes. |
 | | |
