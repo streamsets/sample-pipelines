@@ -15,9 +15,6 @@ and running before you can create pipelines and run jobs.
 * Access to [DeltaLake](https://databricks.com/try-databricks) account
 * Access to Postgres database
   * Check [versions of Postgres](https://docs.streamsets.com/portal/#datacollector/4.0.x/help/datacollector/UserGuide/Installation/SupportedSystemVersions.html#concept_k4l_5ft_v4b) supported for CDC
-* Install the Postgres JDBC Driver
-  * Download the correct JDBC driver from the web i.e. https://jdbc.postgresql.org/download.html
-  * Install the driver following these instructions **after you have imported the pipeline and from the Origin stage**: [Installing from Stage Properties](https://docs.streamsets.com/datacollector/latest/help/datacollector/UserGuide/Configuration/ExternalLibs.html#concept_skq_dh3_5mb)
 
 Complete [Delta Lake prerequisites](https://docs.streamsets.com/portal/platform-datacollector/latest/datacollector/UserGuide/Destinations/DeltaLake.html#concept_xnp_y5f_dlb)
 
